@@ -3,6 +3,7 @@ open Parseur
 exception Eof
 exception TokenInconu
 }
+
 rule token = parse
 [' ' '\t' '\r']
 { token lexbuf }
@@ -17,6 +18,7 @@ as lexem
 | '-'
 { MINUS }
 | '*'
+
 { TIMES }
 | '('
 { GPAREN }
@@ -24,9 +26,28 @@ as lexem
 { DPAREN }
 | '%'
 {MODULO}
+| "true"
+{ TRUE }
+| "false"
+{ FALSE }
+| "=="
+{ EQUAL }
+| "!="
+{ NOT_EQUAL }
+| '!'
+{ NOT }
+| '>'
+{GRST}
+| ">="
+{GREQ}
+| '<'
+{LOST}
+| "<="
+{LOEQ}
 | eof
 { raise Eof }
 |';'
 {SEMICOLON}
 | _
 { raise TokenInconu }
+

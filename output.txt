@@ -1,5 +1,4 @@
-CsteNb 2.5
-CsteNb 10.
-CsteNb 8.
-ModuNb
+CsteNb 5.
+CsteNb 4.
+NotEql
 Halt
