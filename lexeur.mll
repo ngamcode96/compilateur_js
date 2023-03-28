@@ -39,10 +39,10 @@ rule token = parse
 {LOST}
 | "<="
 {LOEQ}
-
 | eof
 { raise Eof }
 |';'
 {SEMICOLON}
 | _
 { raise TokenInconu }
+

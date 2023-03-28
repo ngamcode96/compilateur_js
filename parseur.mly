@@ -48,4 +48,5 @@ expression PLUS expression
 {}
 | FALSE
 {}
+
 ;
