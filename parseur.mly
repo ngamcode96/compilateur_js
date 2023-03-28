@@ -1,5 +1,8 @@
 
 %token NUMBER PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOL MODULO
+%token TRUE FALSE NOT
+%token EQUAL GRST GREQ LOST LOEQ
+%left EQUAL GRST GREQ LOST LOEQ
 %left PLUS MINUS
 %left TIMES MODULO
 %nonassoc UMINUS
@@ -23,10 +26,26 @@ expression PLUS expression
 {}
 | expression MODULO expression
 {}
+| expression EQUAL expression
+{}
+| expression GRST expression
+{}
+| expression GREQ expression
+{}
+| expression LOST expression
+{}
+| expression LOEQ expression
+{}
+| NOT expression
+{}
 | GPAREN expression DPAREN
 {}
 | MINUS expression %prec UMINUS
 {}
 | NUMBER
+{}
+| TRUE
+{}
+| FALSE
 {}
 ;

@@ -10,5 +10,5 @@ with
 | Lexeur.Eof -> exit 0;
 | Lexeur.TokenInconu 
 | Parsing.Parse_error -> 
-Printf.printf ("Ceci n'est pas une expression arithmetique\n")
+Printf.printf ("Syntax error \n")
 

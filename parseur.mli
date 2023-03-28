@@ -8,6 +8,14 @@ type token =
   | SEMICOLON
   | EOL
   | MODULO
+  | TRUE
+  | FALSE
+  | NOT
+  | EQUAL
+  | GRST
+  | GREQ
+  | LOST
+  | LOEQ
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> unit

@@ -9,7 +9,6 @@ rule token = parse
 | ['\n']
 { EOL }
 | ['0'-'9']+('.'['0'-'9']+)?
-
 { NUMBER }
 
 | '+'
@@ -24,6 +23,23 @@ rule token = parse
 { DPAREN }
 | '%'
 {MODULO}
+| "true"
+{ TRUE }
+| "false"
+{ FALSE }
+| "=="
+{ EQUAL }
+| '!'
+{ NOT }
+| '>'
+{GRST}
+| ">="
+{GREQ}
+| '<'
+{LOST}
+| "<="
+{LOEQ}
+
 | eof
 { raise Eof }
 |';'
