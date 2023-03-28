@@ -1,0 +1,13 @@
+CsteNb 2
+CsteNb 3
+AddiNb
+CsteNb 5
+AddiNb
+CsteNb 2
+CsteNb 3
+CsteNb 2
+AddiNb
+MultNb
+CsteNb 2
+NegaNb 
+Halt

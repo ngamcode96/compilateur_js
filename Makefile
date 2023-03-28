@@ -4,6 +4,6 @@ e1:
 e2: 
 	ocamlyacc parseur.mly
 e3: 
-	ocamlc -c  parseur.mli lexeur.ml parseur.ml  main.ml
+	ocamlc -c  AST.ml parseur.mli lexeur.ml parseur.ml  main.ml
 e4: 
-	ocamlc -o  main lexeur.cmo parseur.cmo  main.cmo
+	ocamlc -o   main AST.cmo lexeur.cmo parseur.cmo  main.cmo

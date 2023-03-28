@@ -1,5 +1,5 @@
 type token =
-  | NUMBER
+  | NUMBER of (int)
   | PLUS
   | MINUS
   | TIMES
@@ -9,4 +9,4 @@ type token =
   | EOL
 
 val main :
-  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> unit
+  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> AST.expression_a
