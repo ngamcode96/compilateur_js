@@ -8,7 +8,7 @@ rule token = parse
 { token lexbuf }
 | ['\n']
 { EOL }
-| ['0'-'9']+
+| ['0'-'9']+('.'['0'-'9']+)?
 
 { NUMBER }
 
@@ -22,6 +22,8 @@ rule token = parse
 { GPAREN }
 | ')'
 { DPAREN }
+| '%'
+{MODULO}
 | eof
 { raise Eof }
 |';'

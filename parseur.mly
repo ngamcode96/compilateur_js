@@ -1,7 +1,7 @@
 
-%token NUMBER PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOL
+%token NUMBER PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOL MODULO
 %left PLUS MINUS
-%left TIMES
+%left TIMES MODULO
 %nonassoc UMINUS
 %type <unit> main expression
 %start main
@@ -20,6 +20,8 @@ expression PLUS expression
 | expression MINUS expression
 {}
 | expression TIMES expression
+{}
+| expression MODULO expression
 {}
 | GPAREN expression DPAREN
 {}

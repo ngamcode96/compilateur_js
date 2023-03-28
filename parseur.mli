@@ -7,6 +7,7 @@ type token =
   | DPAREN
   | SEMICOLON
   | EOL
+  | MODULO
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> unit
