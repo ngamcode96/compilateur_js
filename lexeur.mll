@@ -3,6 +3,7 @@ open Parseur
 exception Eof
 exception TokenInconu
 }
+
 rule token = parse
 [' ' '\t' '\r']
 { token lexbuf }
