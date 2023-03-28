@@ -1,5 +1,5 @@
 type token =
-  | NUMBER of (int)
+  | NUMBER of (float)
   | PLUS
   | MINUS
   | TIMES
@@ -7,6 +7,7 @@ type token =
   | DPAREN
   | SEMICOLON
   | EOL
+  | MODULO
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> AST.expression_a
