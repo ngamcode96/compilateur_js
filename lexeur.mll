@@ -31,6 +31,8 @@ rule token = parse
 { FALSE }
 | "=="
 { EQUAL }
+| "!="
+{ NOT_EQUAL }
 | '!'
 { NOT }
 | '>'

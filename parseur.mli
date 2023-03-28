@@ -16,6 +16,7 @@ type token =
   | GREQ
   | LOST
   | LOEQ
+  | NOT_EQUAL
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> unit
