@@ -9,10 +9,9 @@ rule token = parse
 { token lexbuf }
 | ['\n']
 { EOL }
-| ['0'-'9']+('.'['0'-'9']+)?
+| ['0'-'9']*('.'['0'-'9']+)?('e' '-'? ['0'-'9']+)?
 as lexem
-{ NUMBER(float_of_string lexem) }
-
+{ NUMBER(float_of_string lexem)}
 | '+'
 { PLUS }
 | '-'
@@ -20,6 +19,8 @@ as lexem
 | '*'
 
 { TIMES }
+| '/'
+{ DIV }
 | '('
 { GPAREN }
 | ')'
@@ -44,6 +45,9 @@ as lexem
 {LOST}
 | "<="
 {LOEQ}
+| "NaN"
+{NAN}
+
 | eof
 { raise Eof }
 |';'

@@ -4,6 +4,7 @@ type expression_a =
     | Moins of expression_a * expression_a
     | Mult  of expression_a * expression_a
     | Modulo  of expression_a * expression_a
+    | Div  of expression_a * expression_a
     | Equal  of expression_a * expression_a
     | Not_Equal of expression_a * expression_a
     | Sup_equal  of expression_a * expression_a
@@ -15,6 +16,7 @@ type expression_a =
     | Paren of expression_a
     | Neg   of expression_a
     | Num   of float
+    | Nan
 ;;
 
 type commande_a = expression_a;;
@@ -26,6 +28,7 @@ let rec print_code oc = function
 | Moins  (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "SubiNb\n")
 | Mult   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "MultNb\n")
 | Modulo   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "ModuNb\n")
+| Div   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "DiviNb\n")
 | Equal   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "Equals\n")
 | Not_Equal   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "NotEql\n")
 | Sup_equal   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "GrEqNb\n")
@@ -37,4 +40,6 @@ let rec print_code oc = function
 | Neg   e -> (print_code oc e);(Printf.fprintf oc "NegaNb \n");
 | Num    n    ->  (Printf.fprintf oc "CsteNb %s\n" (string_of_float n))
 | Booleen    b    ->  (Printf.fprintf oc "CsteBo %s\n" (string_of_bool b))
+| Nan    ->  (Printf.fprintf oc "CsteNb NaN\n")
+
 ;;

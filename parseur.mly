@@ -1,11 +1,10 @@
-
 %token<float> NUMBER
-%token PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOL MODULO
+%token PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOL MODULO DIV NAN
 %token TRUE FALSE NOT
 %token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
 %left EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
 %left PLUS MINUS
-%left TIMES MODULO
+%left TIMES MODULO DIV
 %nonassoc UMINUS
 %type <AST.expression_a> main expression
 %type <AST.commande_a> commande
@@ -28,6 +27,8 @@ expression PLUS expression
 {Mult($1, $3)}
 | expression MODULO expression
 {Modulo($1, $3)}
+| expression DIV expression
+{Div($1, $3)}
 | expression EQUAL expression
 {Equal($1, $3)}
 | expression NOT_EQUAL expression
@@ -52,5 +53,6 @@ expression PLUS expression
 {Booleen(true)}
 | FALSE
 {Booleen(false)}
-
+|NAN
+{Nan}
 ;
