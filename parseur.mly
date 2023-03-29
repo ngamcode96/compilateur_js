@@ -10,7 +10,9 @@
 %start main
 %%
 main:
-commande EOL
+EOL
+{}
+| commande main EOL
 {}
 
 commande: 
