@@ -8,6 +8,8 @@ type token =
   | SEMICOLON
   | EOL
   | MODULO
+  | DIV
+  | NAN
   | TRUE
   | FALSE
   | NOT
