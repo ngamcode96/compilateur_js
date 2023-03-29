@@ -21,4 +21,4 @@ type token =
   | NOT_EQUAL
 
 val main :
-  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> AST.expression_a
+  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> AST.commande_a list

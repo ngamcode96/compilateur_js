@@ -5,8 +5,7 @@ let output = open_out "output.txt" in
 try
 let lexbuf = Lexing.from_channel fichier in
 while true do 
-Parseur.main Lexeur.token lexbuf
-|> AST.print_code output
+ AST.print_AST output (Parseur.main Lexeur.token lexbuf)
 done
 with
 | Lexeur.Eof -> (Printf.fprintf output "Halt\n"); exit 0;

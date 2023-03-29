@@ -6,13 +6,16 @@
 %left PLUS MINUS
 %left TIMES MODULO DIV
 %nonassoc UMINUS
-%type <AST.expression_a> main expression
+%type <AST.commande_a list> main
+%type <AST.expression_a>  expression
 %type <AST.commande_a> commande
 %start main
 %%
 main:
-commande EOL
-{$1}
+EOL
+{[]}
+|commande main
+{$1::$2}
 
 commande: 
     expression SEMICOLON

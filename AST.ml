@@ -43,3 +43,8 @@ let rec print_code oc = function
 | Nan    ->  (Printf.fprintf oc "CsteNb NaN\n")
 
 ;;
+
+let rec print_AST oc e = 
+    match e with
+    |[] -> Printf.fprintf oc ""
+    |h::d -> (print_code oc h); (print_AST oc d);;

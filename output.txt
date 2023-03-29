@@ -1,8 +1,8 @@
-CsteNb 1.215e+25
-CsteNb 4.85e-43
-CsteNb 2e-25
-NegaNb 
 CsteNb 2.
-CsteNb 5.3
-CsteNb NaN
+CsteNb 3.
+AddiNb
+CsteNb 42.
+CsteNb 2.
+CsteNb 5.
+Equals
 Halt
