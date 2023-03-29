@@ -12,7 +12,7 @@
 main:
 EOL
 {}
-| commande main EOL
+| commande main
 {}
 
 commande: 
