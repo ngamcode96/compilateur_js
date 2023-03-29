@@ -8,15 +8,16 @@ rule token = parse
 { token lexbuf }
 | ['\n']
 { EOL }
-| ['0'-'9']+('.'['0'-'9']+)?
+| ['0'-'9']*('.'['0'-'9']+)?('e' '-'? ['0'-'9']+)?
 { NUMBER }
-
 | '+'
 { PLUS }
 | '-'
 { MINUS }
 | '*'
 { TIMES }
+| '/'
+{ DIV }
 | '('
 { GPAREN }
 | ')'
@@ -39,6 +40,8 @@ rule token = parse
 {LOST}
 | "<="
 {LOEQ}
+| "NaN"
+{NAN}
 
 | eof
 { raise Eof }
