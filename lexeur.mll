@@ -42,7 +42,10 @@ rule token = parse
 {LOEQ}
 | "NaN"
 {NAN}
-
+|"import"
+{IMPORT}
+| (['a'-'z' 'A'-'Z']+(['0'-'9']*)?)+
+{IDENT}
 | eof
 { raise Eof }
 |';'
