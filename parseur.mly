@@ -1,5 +1,7 @@
 %token<float> NUMBER
 %token PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOL MODULO DIV NAN
+%token<string> IDENT
+%token IMPORT
 %token TRUE FALSE NOT
 %token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
 %left EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
@@ -19,7 +21,9 @@ EOL
 
 commande: 
     expression SEMICOLON
-    {Expr($1)}
+    {Expression($1)}
+    |IMPORT IDENT SEMICOLON
+    {Import($2)}
 ;
 expression:
 expression PLUS expression

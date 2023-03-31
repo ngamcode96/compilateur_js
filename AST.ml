@@ -17,9 +17,11 @@ type expression_a =
     | Neg   of expression_a
     | Num   of float
     | Nan
+    
 ;;
-
-type commande_a = expression_a;;
+type commande_a = 
+    |Expression of expression_a
+    | Import of string;;
 
 
 let rec print_code oc = function
@@ -44,7 +46,16 @@ let rec print_code oc = function
 
 ;;
 
-let rec print_AST oc e = 
-    match e with
+let read_import_file filename = 
+    let f = open_in filename in
+    let size = in_channel_length f in
+    let content = really_input_string f size in
+    close_in f;
+    content;;
+
+let rec print_AST oc l = 
+    match l with
     |[] -> Printf.fprintf oc ""
-    |h::d -> (print_code oc h); (print_AST oc d);;
+    |h::d -> match h with
+        |Expression e -> (print_code oc e); (print_AST oc d)
+        |Import ident -> (Printf.fprintf oc "%s" (read_import_file (ident^".jsm")))

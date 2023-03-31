@@ -6,11 +6,3 @@ AddiNb
 CsteBo true
 CsteBo false
 Equals
-CsteNb 2.
-CsteNb 4.
-CsteNb 2.
-CsteNb 5.
-MultNb
-MultNb
-AddiNb
-Halt

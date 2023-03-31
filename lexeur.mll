@@ -47,7 +47,11 @@ as lexem
 {LOEQ}
 | "NaN"
 {NAN}
-
+|"import"
+{IMPORT}
+| (['a'-'z' 'A'-'Z']+(['0'-'9']*)?)+
+as id
+{IDENT(id)}
 | eof
 { raise Eof }
 |';'
