@@ -44,6 +44,8 @@ rule token = parse
 {LOST}
 | "<="
 {LOEQ}
+| "&&"
+{AND}
 | "NaN"
 {NAN}
 |"import"

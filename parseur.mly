@@ -1,9 +1,9 @@
 
 %token NUMBER PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOL MODULO DIV NAN 
 %token IMPORT IDENT
-%token TRUE FALSE NOT
-%token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
-%left EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
+%token TRUE FALSE NOT AND
+%token EQUAL GRST GREQ LOST LOEQ
+%left EQUAL GRST GREQ LOST LOEQ
 %left PLUS MINUS
 %left TIMES MODULO DIV
 %nonassoc UMINUS
@@ -44,6 +44,8 @@ expression PLUS expression
 | expression LOST expression
 {}
 | expression LOEQ expression
+{}
+| expression AND expression
 {}
 | NOT expression
 {}

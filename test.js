@@ -1,1 +1,2 @@
 import malib;
+true&&false;
