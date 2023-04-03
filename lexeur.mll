@@ -45,6 +45,8 @@ as lexem
 {LOST}
 | "<="
 {LOEQ}
+|"&&"
+{AND}
 | "NaN"
 {NAN}
 |"import"

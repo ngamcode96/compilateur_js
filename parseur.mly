@@ -2,7 +2,7 @@
 %token PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOL MODULO DIV NAN
 %token<string> IDENT
 %token IMPORT
-%token TRUE FALSE NOT
+%token TRUE FALSE NOT AND
 %token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
 %left EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
 %left PLUS MINUS
@@ -48,6 +48,8 @@ expression PLUS expression
 {Inf_strict($1, $3)}
 | expression LOEQ expression
 {Inf_equal($1, $3)}
+| expression AND expression
+{And($1, $3)}
 | NOT expression
 {Not($2)}
 | GPAREN expression DPAREN

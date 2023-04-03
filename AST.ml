@@ -11,6 +11,7 @@ type expression_a =
     | Sup_strict  of expression_a * expression_a
     | Inf_equal  of expression_a * expression_a
     | Inf_strict  of expression_a * expression_a
+    | And  of expression_a * expression_a
     | Not of expression_a
     | Booleen of bool
     | Paren of expression_a
@@ -37,6 +38,7 @@ let rec print_code oc = function
 | Sup_strict   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "GrStNb\n")
 | Inf_equal   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "LoEqNb\n")
 | Inf_strict   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "LoStNb\n")
+| And   (g,d) -> (print_code oc g); (Printf.fprintf oc "%s" "ConJmp label_and\n") ;(print_code oc d); (Printf.fprintf oc "Jump fin\nlabel_and CsteBo false\nfin Noop\n");
 | Not b -> print_code oc b;(Printf.fprintf oc "Not\n");
 | Paren e -> print_code oc e;
 | Neg   e -> (print_code oc e);(Printf.fprintf oc "NegaNb \n");

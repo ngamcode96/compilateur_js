@@ -1,16 +1,7 @@
-CsteNb 2.
 CsteNb 1.
-CsteNb 5.
-MultNb
-AddiNb
-CsteBo true
-CsteBo false
-Equals
+ConJmp label_and
 CsteNb 2.
-CsteNb 4.
-CsteNb 2.
-CsteNb 5.
-MultNb
-MultNb
-AddiNb
+Jump fin
+label_and CsteBo false
+fin Noop
 Halt

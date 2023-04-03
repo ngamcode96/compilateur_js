@@ -15,6 +15,7 @@ type token =
   | TRUE
   | FALSE
   | NOT
+  | AND
   | EQUAL
   | GRST
   | GREQ
