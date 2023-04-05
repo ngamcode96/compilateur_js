@@ -1,7 +1,4 @@
 CsteNb 1.
-ConJmp label_and
-CsteNb 2.
-Jump fin
-label_and CsteBo false
-fin Noop
-Halt
+CsteNb 5.
+CsteNb 32.
+MultNb

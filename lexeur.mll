@@ -5,10 +5,12 @@ exception TokenInconu
 }
 
 rule token = parse
-[' ' '\t' '\r']
+[' ' '\t' '\r' '\n']
 { token lexbuf }
-| ['\n']
-{ EOL }
+|"//"[^'\n']*
+{ token lexbuf}
+|"/*" ([^'*'] | '*' [^'/'])* "*/" 
+{ token lexbuf}
 | ['0'-'9']*('.'['0'-'9']+)?('e' '-'? ['0'-'9']+)?
 as lexem
 { NUMBER(float_of_string lexem)}
@@ -55,7 +57,7 @@ as lexem
 as id
 {IDENT(id)}
 | eof
-{ raise Eof }
+{ EOF}
 |';'
 {SEMICOLON}
 | _

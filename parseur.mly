@@ -1,5 +1,5 @@
 %token<float> NUMBER
-%token PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOL MODULO DIV NAN
+%token PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOF MODULO DIV NAN
 %token<string> IDENT
 %token IMPORT
 %token TRUE FALSE NOT AND
@@ -14,7 +14,7 @@
 %start main
 %%
 main:
-EOL
+EOF
 {[]}
 |commande main
 {$1::$2}
