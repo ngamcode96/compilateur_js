@@ -57,7 +57,7 @@ let read_import_file filename =
 
 let rec print_AST oc l = 
     match l with
-    |[] -> Printf.fprintf oc ""
+    |[] -> Printf.fprintf oc "Halt\n"
     |h::d -> match h with
         |Expression e -> (print_code oc e); (print_AST oc d)
         |Import ident -> (Printf.fprintf oc "%s" (read_import_file (ident^".jsm")))
