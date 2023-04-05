@@ -5,10 +5,12 @@ exception TokenInconu
 }
 
 rule token = parse
-[' ' '\t' '\r']
+[' ' '\t' '\r' '\n']
 { token lexbuf }
-| ['\n']
-{ EOL }
+|"//"[^'\n']*
+{ token lexbuf}
+|"/*" ([^'*'] | '*' [^'/'])* "*/" 
+{ token lexbuf}
 | ['0'-'9']*('.'['0'-'9']+)?('e' '-'? ['0'-'9']+)?
 { NUMBER }
 | '+'
@@ -53,7 +55,7 @@ rule token = parse
 | (['a'-'z' 'A'-'Z']+(['0'-'9']*)?)+
 {IDENT}
 | eof
-{ raise Eof }
+{ EOF }
 |';'
 {SEMICOLON}
 | _
