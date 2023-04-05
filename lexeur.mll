@@ -30,6 +30,8 @@ rule token = parse
 { TRUE }
 | "false"
 { FALSE }
+| '='
+{ASSIGN}
 | "=="
 { EQUAL }
 | '!'
@@ -48,7 +50,7 @@ rule token = parse
 {NAN}
 |"import"
 {IMPORT}
-| (['a'-'z' 'A'-'Z']+(['0'-'9']*)?)+
+| ['a'-'z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
 {IDENT}
 | eof
 { EOF }
