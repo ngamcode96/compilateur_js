@@ -1,11 +1,12 @@
 
-%token NUMBER PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOF MODULO DIV NAN 
+%token NUMBER PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOF MODULO DIV NAN ASSIGN
 %token IMPORT IDENT
 %token TRUE FALSE NOT AND
 %token EQUAL GRST GREQ LOST LOEQ
 %left EQUAL GRST GREQ LOST LOEQ
 %left PLUS MINUS
 %left TIMES MODULO DIV
+%right ASSIGN
 %nonassoc UMINUS
 %type <unit> main expression
 %start main
@@ -23,7 +24,9 @@ commande:
     {}
 ;
 expression:
-expression PLUS expression
+IDENT ASSIGN expression
+{}
+|expression PLUS expression
 {}
 | expression MINUS expression
 {}
@@ -60,5 +63,7 @@ expression PLUS expression
 | FALSE
 {}
 |NAN
+{}
+|IDENT 
 {}
 ;

@@ -10,6 +10,7 @@ type token =
   | MODULO
   | DIV
   | NAN
+  | ASSIGN
   | IMPORT
   | IDENT
   | TRUE
