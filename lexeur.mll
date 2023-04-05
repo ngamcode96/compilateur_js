@@ -33,6 +33,8 @@ as lexem
 { TRUE }
 | "false"
 { FALSE }
+| '='
+{ASSIGN}
 | "=="
 { EQUAL }
 | "!="
@@ -53,7 +55,7 @@ as lexem
 {NAN}
 |"import"
 {IMPORT}
-| (['a'-'z' 'A'-'Z']+(['0'-'9']*)?)+
+| ['a'-'z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
 as id
 {IDENT(id)}
 | eof

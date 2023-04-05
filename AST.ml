@@ -18,7 +18,8 @@ type expression_a =
     | Neg   of expression_a
     | Num   of float
     | Nan
-    
+    | Ident of string
+    | Assign of string * expression_a
 ;;
 type commande_a = 
     |Expression of expression_a
@@ -45,6 +46,8 @@ let rec print_code oc = function
 | Num    n    ->  (Printf.fprintf oc "CsteNb %s\n" (string_of_float n))
 | Booleen    b    ->  (Printf.fprintf oc "CsteBo %s\n" (string_of_bool b))
 | Nan    ->  (Printf.fprintf oc "CsteNb NaN\n")
+| Ident v -> (Printf.fprintf oc "GetVar %s\n" v)
+| Assign (v,e) ->(print_code oc e);(Printf.fprintf oc "SetVar %s\n" v)
 
 ;;
 

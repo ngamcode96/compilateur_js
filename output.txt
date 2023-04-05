@@ -1,5 +1,15 @@
+CsteNb 2.
+SetVar x
+CsteNb 3.
 CsteNb 1.
+AddiNb
+SetVar y
+GetVar x
+GetVar y
+AddiNb
+SetVar z
+CsteNb 2.
 CsteNb 5.
-CsteNb 32.
-MultNb
+LoEqNb
+SetVar toto
 Halt

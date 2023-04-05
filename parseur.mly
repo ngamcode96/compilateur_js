@@ -1,9 +1,10 @@
 %token<float> NUMBER
-%token PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOF MODULO DIV NAN
+%token PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOF MODULO DIV NAN ASSIGN
 %token<string> IDENT
 %token IMPORT
 %token TRUE FALSE NOT AND
 %token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
+%right ASSIGN
 %left EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
 %left PLUS MINUS
 %left TIMES MODULO DIV
@@ -26,7 +27,9 @@ commande:
     {Import($2)}
 ;
 expression:
-expression PLUS expression
+IDENT ASSIGN expression
+{Assign($1, $3)}
+|expression PLUS expression
 {Plus($1, $3)}
 | expression MINUS expression
 {Moins($1, $3)}
@@ -64,4 +67,6 @@ expression PLUS expression
 {Booleen(false)}
 |NAN
 {Nan}
+|IDENT
+{Ident($1)}
 ;
