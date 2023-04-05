@@ -3,10 +3,10 @@
 %token IMPORT IDENT
 %token TRUE FALSE NOT AND
 %token EQUAL GRST GREQ LOST LOEQ
+%right ASSIGN
 %left EQUAL GRST GREQ LOST LOEQ
 %left PLUS MINUS
 %left TIMES MODULO DIV
-%right ASSIGN
 %nonassoc UMINUS
 %type <unit> main expression
 %start main
