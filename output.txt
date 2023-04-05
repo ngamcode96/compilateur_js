@@ -1,15 +1,6 @@
-CsteNb 2.
-SetVar x
-CsteNb 3.
-CsteNb 1.
-AddiNb
-SetVar y
+CsteNb 20.
 GetVar x
-GetVar y
 AddiNb
-SetVar z
-CsteNb 2.
-CsteNb 5.
-LoEqNb
-SetVar toto
+CsteNb 24.
+Equals
 Halt

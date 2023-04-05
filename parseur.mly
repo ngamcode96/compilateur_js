@@ -5,9 +5,12 @@
 %token TRUE FALSE NOT AND
 %token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
 %right ASSIGN
-%left EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
+%left AND
+%left EQUAL NOT_EQUAL
+%left GRST GREQ LOST LOEQ
 %left PLUS MINUS
 %left TIMES MODULO DIV
+%nonassoc NOT
 %nonassoc UMINUS
 %type <AST.commande_a list> main
 %type <AST.expression_a>  expression

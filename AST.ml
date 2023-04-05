@@ -26,19 +26,20 @@ type commande_a =
     | Import of string;;
 
 
+
 let rec print_code oc = function
 | Expr   e -> (print_code oc e); 
-| Plus  (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "AddiNb\n")
-| Moins  (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "SubiNb\n")
-| Mult   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "MultNb\n")
-| Modulo   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "ModuNb\n")
-| Div   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "DiviNb\n")
-| Equal   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "Equals\n")
-| Not_Equal   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "NotEql\n")
-| Sup_equal   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "GrEqNb\n")
-| Sup_strict   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "GrStNb\n")
-| Inf_equal   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "LoEqNb\n")
-| Inf_strict   (g,d) -> print_code oc g; print_code oc d; (Printf.fprintf oc "%s" "LoStNb\n")
+| Plus  (g,d) -> print_binary_operation g d "+" oc;
+| Moins  (g,d) -> print_binary_operation g d "-" oc;
+| Mult   (g,d) -> print_binary_operation g d "*" oc;
+| Modulo   (g,d) -> print_binary_operation g d "%" oc;
+| Div   (g,d) -> print_binary_operation g d "/" oc;
+| Equal   (g,d) -> print_binary_operation g d "==" oc;
+| Not_Equal   (g,d) -> print_binary_operation g d "!=" oc;
+| Sup_equal   (g,d) -> print_binary_operation g d ">=" oc;
+| Sup_strict   (g,d) -> print_binary_operation g d ">" oc;
+| Inf_equal   (g,d) -> print_binary_operation g d "<=" oc;
+| Inf_strict   (g,d) -> print_binary_operation g d "<" oc;
 | And   (g,d) -> (print_code oc g); (Printf.fprintf oc "%s" "ConJmp label_and\n") ;(print_code oc d); (Printf.fprintf oc "Jump fin\nlabel_and CsteBo false\nfin Noop\n");
 | Not b -> print_code oc b;(Printf.fprintf oc "Not\n");
 | Paren e -> print_code oc e;
@@ -49,6 +50,35 @@ let rec print_code oc = function
 | Ident v -> (Printf.fprintf oc "GetVar %s\n" v)
 | Assign (v,e) ->(print_code oc e);(Printf.fprintf oc "SetVar %s\n" v)
 
+
+and print_binary_operation e1 e2 op oc= 
+    match (e1, e2) with
+    |(Num n1, Num n2) -> (match op with
+        | "+" -> (Printf.fprintf oc "CsteNb %s\n" (string_of_float (n1+.n2)))
+        | "-" -> (Printf.fprintf oc "CsteNb %s\n" (string_of_float (n1-.n2)))
+        | "*" -> (Printf.fprintf oc "CsteNb %s\n" (string_of_float (n1*.n2)))
+        | "/" -> (Printf.fprintf oc "CsteNb %s\n" (string_of_float (n1/.n2)))
+        | "%" -> (Printf.fprintf oc "CsteNb %s\n" (string_of_int ( (int_of_float n1) mod (int_of_float n2))))
+        | "==" -> (Printf.fprintf oc "CsteBo %s\n" (string_of_bool (n1 == n2)))
+        | "!=" -> (Printf.fprintf oc "CsteBo %s\n" (string_of_bool (n1 != n2)))
+        | "<=" -> (Printf.fprintf oc "CsteBo %s\n" (string_of_bool (n1 <= n2)))
+        | "<" -> (Printf.fprintf oc "CsteBo %s\n" (string_of_bool (n1 < n2)))
+        | ">=" -> (Printf.fprintf oc "CsteBo %s\n" (string_of_bool (n1 >= n2)))
+        | ">" -> (Printf.fprintf oc "CsteBo %s\n" (string_of_bool (n1 > n2)))
+        | _ -> (Printf.fprintf oc ""))
+    | _ -> (match op with 
+        | "+" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "AddiNb\n")
+        | "-" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "SubiNb\n")
+        | "*" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "MultNb\n")
+        | "/" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "DiviNb\n")
+        | "%" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "ModuNb\n")
+        | "==" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "Equals\n")
+        | "!=" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "NotEql\n")
+        | "<=" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "LoEqNb\n")
+        | "<" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "LoStNb\n")
+        | ">=" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "GrEqNb\n")
+        | ">" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "GrStNb\n")
+        | _ -> (Printf.fprintf oc ""))
 ;;
 
 let read_import_file filename = 
