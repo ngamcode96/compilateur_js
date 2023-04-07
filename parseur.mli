@@ -11,8 +11,8 @@ type token =
   | DIV
   | NAN
   | ASSIGN
-  | IMPORT
   | IDENT
+  | IMPORT
   | TRUE
   | FALSE
   | NOT
