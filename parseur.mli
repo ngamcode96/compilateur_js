@@ -11,8 +11,8 @@ type token =
   | DIV
   | NAN
   | ASSIGN
-  | IMPORT
   | IDENT
+  | IMPORT
   | TRUE
   | FALSE
   | NOT
@@ -22,6 +22,7 @@ type token =
   | GREQ
   | LOST
   | LOEQ
+  | NOT_EQUAL
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> unit
