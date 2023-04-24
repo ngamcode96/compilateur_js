@@ -1,6 +1,9 @@
-CsteNb 20.
-GetVar x
-AddiNb
-CsteNb 24.
-Equals
+CsteBo true
+ConJmp else
+CsteNb 3.
+SetVar x
+Jump fin
+else CsteNb 5.
+SetVar y
+fin Noop
 Halt

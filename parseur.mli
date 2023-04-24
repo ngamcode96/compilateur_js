@@ -23,6 +23,8 @@ type token =
   | LOST
   | LOEQ
   | NOT_EQUAL
+  | IF
+  | ELSE
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> AST.commande_a list

@@ -55,6 +55,10 @@ as lexem
 {NAN}
 |"import"
 {IMPORT}
+|"if"
+{IF}
+|"else"
+{ELSE}
 | ['a'-'z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
 as id
 {IDENT(id)}

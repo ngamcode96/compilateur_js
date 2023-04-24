@@ -23,6 +23,7 @@ type expression_a =
 ;;
 type commande_a = 
     |Expression of expression_a
+    |IfThenElse of expression_a*commande_a*commande_a
     | Import of string;;
 
 
@@ -88,9 +89,13 @@ let read_import_file filename =
     close_in f;
     content;;
 
+let rec print_command oc c = 
+    match c with
+        |Expression e -> (print_code oc e);
+        |Import ident -> (Printf.fprintf oc "%s" (read_import_file (ident^".jsm")))
+        |IfThenElse (e,c1,c2) -> (print_code oc e); (Printf.fprintf oc "%s" "ConJmp else\n") ;(print_command oc c1); (Printf.fprintf oc "Jump fin\nelse ");(print_command oc c2);(Printf.fprintf oc "fin Noop\n");;
+
 let rec print_AST oc l = 
     match l with
     |[] -> Printf.fprintf oc "Halt\n"
-    |h::d -> match h with
-        |Expression e -> (print_code oc e); (print_AST oc d)
-        |Import ident -> (Printf.fprintf oc "%s" (read_import_file (ident^".jsm")))
+    |h::d -> (print_command oc h);(print_AST oc d);;
