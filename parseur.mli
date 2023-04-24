@@ -6,6 +6,8 @@ type token =
   | GPAREN
   | DPAREN
   | SEMICOLON
+  | GBRAC
+  | DBRAC
   | EOF
   | MODULO
   | DIV

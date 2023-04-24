@@ -26,6 +26,10 @@ rule token = parse
 { GPAREN }
 | ')'
 { DPAREN }
+|'{'
+{GBRAC}
+|'}'
+{DBRAC}
 | '%'
 {MODULO}
 | "true"

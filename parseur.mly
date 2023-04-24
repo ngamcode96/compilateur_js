@@ -1,5 +1,5 @@
 
-%token NUMBER PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOF MODULO DIV NAN ASSIGN
+%token NUMBER PLUS MINUS TIMES GPAREN DPAREN SEMICOLON GBRAC DBRAC EOF MODULO DIV NAN ASSIGN
 %token IDENT
 %token IMPORT
 %token TRUE FALSE NOT AND
@@ -18,7 +18,8 @@
 %start main
 %%
 main:
-EOF
+{}
+|EOF
 {}
 | commande main
 {}
@@ -33,6 +34,10 @@ commande:
     | WHILE GPAREN expression DPAREN commande
     {}
     | FOR GPAREN commande expression SEMICOLON expression DPAREN commande
+    {}
+    | SEMICOLON
+    {}
+    | GBRAC main DBRAC
     {}
 ;
 
