@@ -59,6 +59,12 @@ as lexem
 {IF}
 |"else"
 {ELSE}
+|"while"
+{WHILE}
+|"for"
+{FOR}
+|"do"
+{DO}
 | ['a'-'z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
 as id
 {IDENT(id)}

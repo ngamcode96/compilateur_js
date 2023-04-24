@@ -5,6 +5,7 @@
 %token TRUE FALSE NOT AND
 %token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
 %token IF ELSE
+%token WHILE FOR DO
 %right ASSIGN
 %left AND
 %left EQUAL NOT_EQUAL
@@ -31,6 +32,12 @@ commande:
     {Import($2)}
     |IF GPAREN expression DPAREN commande ELSE commande
     {IfThenElse($3, $5, $7)}
+    | WHILE GPAREN expression DPAREN commande
+    {While($3, $5)}
+    | FOR GPAREN commande expression SEMICOLON expression DPAREN commande
+    {For($3, $4, $6, $8)}
+    | DO commande WHILE GPAREN expression DPAREN SEMICOLON
+    {Do_While($2, $5)}
 ;
 expression:
 IDENT ASSIGN expression

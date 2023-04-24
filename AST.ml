@@ -24,7 +24,12 @@ type expression_a =
 type commande_a = 
     |Expression of expression_a
     |IfThenElse of expression_a*commande_a*commande_a
-    | Import of string;;
+    |Import of string
+    |While of expression_a*commande_a
+    |For of commande_a*expression_a*expression_a*commande_a
+    |Do_While of commande_a * expression_a
+
+;;
 
 
 
@@ -93,8 +98,38 @@ let rec print_command oc c =
     match c with
         |Expression e -> (print_code oc e);
         |Import ident -> (Printf.fprintf oc "%s" (read_import_file (ident^".jsm")))
-        |IfThenElse (e,c1,c2) -> (print_code oc e); (Printf.fprintf oc "%s" "ConJmp else\n") ;(print_command oc c1); (Printf.fprintf oc "Jump fin\nelse ");(print_command oc c2);(Printf.fprintf oc "fin Noop\n");;
+        |IfThenElse (e,c1,c2) -> (print_code oc e); 
+                                (Printf.fprintf oc "%s" "ConJmp else\n") ;
+                                (print_command oc c1); 
+                                (Printf.fprintf oc "Jump fin\nelse ");
+                                (print_command oc c2);
+                                (Printf.fprintf oc "fin Noop\n")
 
+        |While (e, c) ->        (Printf.fprintf oc "%s" "loop ");
+                                (print_code oc e); 
+                                (Printf.fprintf oc "%s" "ConJmp break\n");
+                                (print_command oc c); 
+                                (Printf.fprintf oc "%s" "Jump loop\n");
+                                (Printf.fprintf oc "break Noop\n");
+
+        |For (c1,e1,e2,c2) ->   (print_command oc c1); 
+                                (Printf.fprintf oc "%s" "loop ");
+                                (print_code oc e1); 
+                                (Printf.fprintf oc "%s" "ConJmp break\n");
+                                (print_command oc c2); 
+                                (print_code oc e2); 
+                                (Printf.fprintf oc "%s" "Jump loop\n");
+                                (Printf.fprintf oc "break Noop\n");
+
+        |Do_While(c, e) ->      (Printf.fprintf oc "%s" "loop ");
+                                (print_command oc c);
+                                (print_code oc e); 
+                                (Printf.fprintf oc "%s" "ConJmp break\n"); 
+                                (Printf.fprintf oc "%s" "Jump loop\n");
+                                (Printf.fprintf oc "break Noop\n");
+
+;;
+        
 let rec print_AST oc l = 
     match l with
     |[] -> Printf.fprintf oc "Halt\n"

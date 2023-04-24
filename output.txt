@@ -1,9 +1,15 @@
-CsteBo true
-ConJmp else
-CsteNb 3.
+CsteNb 0.
 SetVar x
-Jump fin
-else CsteNb 5.
-SetVar y
-fin Noop
+CsteNb 0.
+SetVar i
+loop GetVar x
+CsteNb 2.
+MultNb
+SetVar x
+GetVar i
+CsteNb 20.
+LoEqNb
+ConJmp break
+Jump loop
+break Noop
 Halt

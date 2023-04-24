@@ -25,6 +25,9 @@ type token =
   | NOT_EQUAL
   | IF
   | ELSE
+  | WHILE
+  | FOR
+  | DO
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> AST.commande_a list
