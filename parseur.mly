@@ -4,6 +4,7 @@
 %token IMPORT
 %token TRUE FALSE NOT AND
 %token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
+%token IF ELSE
 %right ASSIGN
 %left AND
 %left EQUAL NOT_EQUAL
@@ -26,7 +27,10 @@ commande:
     {}
     | IMPORT IDENT SEMICOLON
     {}
+    | IF GPAREN expression DPAREN commande ELSE commande
+    {}
 ;
+
 expression:
 IDENT ASSIGN expression
 {}
