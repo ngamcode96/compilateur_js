@@ -27,6 +27,10 @@ as lexem
 { GPAREN }
 | ')'
 { DPAREN }
+| '{'
+{GBRAC}
+| '}'
+{DBRAC}
 | '%'
 {MODULO}
 | "true"

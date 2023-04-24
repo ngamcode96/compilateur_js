@@ -1,5 +1,5 @@
 %token<float> NUMBER
-%token PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOF MODULO DIV NAN ASSIGN
+%token PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOF MODULO DIV NAN ASSIGN GBRAC DBRAC
 %token<string> IDENT
 %token IMPORT
 %token TRUE FALSE NOT AND
@@ -20,7 +20,8 @@
 %start main
 %%
 main:
-EOF
+{[]}
+|EOF
 {[]}
 |commande main
 {$1::$2}
@@ -30,6 +31,10 @@ commande:
     {Expression($1)}
     |IMPORT IDENT SEMICOLON
     {Import($2)}
+    | SEMICOLON
+    {EmptyCommand}
+    | GBRAC main DBRAC
+    {ListCommand($2)}
     |IF GPAREN expression DPAREN commande ELSE commande
     {IfThenElse($3, $5, $7)}
     | WHILE GPAREN expression DPAREN commande
@@ -38,6 +43,7 @@ commande:
     {For($3, $4, $6, $8)}
     | DO commande WHILE GPAREN expression DPAREN SEMICOLON
     {Do_While($2, $5)}
+
 ;
 expression:
 IDENT ASSIGN expression

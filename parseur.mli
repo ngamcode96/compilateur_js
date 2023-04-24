@@ -11,6 +11,8 @@ type token =
   | DIV
   | NAN
   | ASSIGN
+  | GBRAC
+  | DBRAC
   | IDENT of (string)
   | IMPORT
   | TRUE

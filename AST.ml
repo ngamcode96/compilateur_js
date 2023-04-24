@@ -22,13 +22,14 @@ type expression_a =
     | Assign of string * expression_a
 ;;
 type commande_a = 
+    |EmptyCommand 
     |Expression of expression_a
     |IfThenElse of expression_a*commande_a*commande_a
     |Import of string
     |While of expression_a*commande_a
     |For of commande_a*expression_a*expression_a*commande_a
     |Do_While of commande_a * expression_a
-
+    |ListCommand of commande_a list
 ;;
 
 
@@ -96,6 +97,11 @@ let read_import_file filename =
 
 let rec print_command oc c = 
     match c with
+        |EmptyCommand -> ()
+        |ListCommand list -> (match list with
+            | [] -> ()
+            | h::d -> (print_command oc h); (print_program oc d);
+        )
         |Expression e -> (print_code oc e);
         |Import ident -> (Printf.fprintf oc "%s" (read_import_file (ident^".jsm")))
         |IfThenElse (e,c1,c2) -> (print_code oc e); 
@@ -128,6 +134,11 @@ let rec print_command oc c =
                                 (Printf.fprintf oc "%s" "Jump loop\n");
                                 (Printf.fprintf oc "break Noop\n");
 
+
+and print_program oc l = 
+match l with
+    |[] -> ()
+    |h::d -> (print_command oc h);(print_program oc d);;
 ;;
         
 let rec print_AST oc l = 
