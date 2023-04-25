@@ -20,6 +20,7 @@ type expression_a =
     | Nan
     | Ident of string
     | Assign of string * expression_a
+    | Function_call of expression_a list
 ;;
 type commande_a = 
     |EmptyCommand 
@@ -56,8 +57,14 @@ let rec print_code oc = function
 | Nan    ->  (Printf.fprintf oc "CsteNb NaN\n")
 | Ident v -> (Printf.fprintf oc "GetVar %s\n" v)
 | Assign (v,e) ->(print_code oc e);(Printf.fprintf oc "SetVar %s\n" v)
+| Function_call arguments ->  (Printf.fprintf oc "StCall\n");  (print_argument oc arguments); (Printf.fprintf oc "Call \n")
 
+and print_argument oc args = 
+match args with
+    | [] -> ()
+    | h::d -> (print_code oc h);  (Printf.fprintf oc "SetArg \n"); (print_argument oc d)
 
+    
 and print_binary_operation e1 e2 op oc= 
     match (e1, e2) with
     |(Num n1, Num n2) -> (match op with

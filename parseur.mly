@@ -6,6 +6,7 @@
 %token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
 %token IF ELSE
 %token WHILE FOR DO
+%token FUNCTION RETURN VIRGULE
 %right ASSIGN
 %left AND
 %left EQUAL NOT_EQUAL
@@ -78,6 +79,8 @@ IDENT ASSIGN expression
 {Paren($2)}
 | MINUS expression %prec UMINUS
 {Neg($2)}
+| IDENT GPAREN arguments DPAREN
+{Function_call($3)}
 | NUMBER
 {Num($1)}
 | TRUE
@@ -88,4 +91,12 @@ IDENT ASSIGN expression
 {Nan}
 |IDENT
 {Ident($1)}
+;
+
+arguments:
+{[]}
+| expression
+{[$1]}
+| expression VIRGULE arguments
+{[$1]@$3}
 ;

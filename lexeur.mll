@@ -69,6 +69,10 @@ as lexem
 {FOR}
 |"do"
 {DO}
+|"function"
+{FUNCTION}
+|"return"
+{RETURN}
 | ['a'-'z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
 as id
 {IDENT(id)}
@@ -76,6 +80,8 @@ as id
 { EOF}
 |';'
 {SEMICOLON}
+|','
+{VIRGULE}
 | _
 { raise TokenInconu }
 

@@ -1,25 +1,13 @@
-CsteNb 0.
-SetVar x
-CsteNb 0.
-SetVar i
-CsteNb 1.
-SetVar i
-loop GetVar i
-CsteNb 10.
-LoEqNb
-ConJmp break
-GetVar i
-GetVar x
-AddiNb
-SetVar x
 CsteNb 2.
-GetVar x
-MultNb
+SetVar x
+CsteNb 3.
 SetVar y
-GetVar i
-CsteNb 1.
+StCall
+GetVar x
+SetArg 
+GetVar x
+GetVar y
 AddiNb
-SetVar i
-Jump loop
-break Noop
+SetArg 
+Call 
 Halt
