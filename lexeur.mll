@@ -72,7 +72,7 @@ rule token = parse
 {FUNCTION}
 |"return"
 {RETURN}
-| ['a'-'z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
+| ['a'-'z' 'A'-'Z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
 {IDENT}
 | eof
 { EOF }
