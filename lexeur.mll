@@ -68,12 +68,18 @@ rule token = parse
 {FOR}
 |"do"
 {DO}
+|"function"
+{FUNCTION}
+|"return"
+{RETURN}
 | ['a'-'z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
 {IDENT}
 | eof
 { EOF }
 |';'
 {SEMICOLON}
+|','
+{VIRGULE}
 | _
 { raise TokenInconu }
 

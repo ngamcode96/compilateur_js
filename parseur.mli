@@ -30,6 +30,9 @@ type token =
   | WHILE
   | FOR
   | DO
+  | FUNCTION
+  | RETURN
+  | VIRGULE
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> unit

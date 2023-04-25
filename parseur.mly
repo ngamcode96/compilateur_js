@@ -6,6 +6,7 @@
 %token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
 %token IF ELSE 
 %token WHILE FOR DO
+%token FUNCTION RETURN VIRGULE
 %right ASSIGN
 %left AND
 %left EQUAL NOT_EQUAL
@@ -74,6 +75,8 @@ IDENT ASSIGN expression
 {}
 | MINUS expression %prec UMINUS
 {}
+| IDENT GPAREN arguments DPAREN // appel de fonction
+{}
 | NUMBER
 {}
 | TRUE
@@ -83,5 +86,12 @@ IDENT ASSIGN expression
 |NAN
 {}
 |IDENT 
+{}
+;
+arguments:
+{}
+| expression
+{}
+| expression VIRGULE arguments
 {}
 ;
