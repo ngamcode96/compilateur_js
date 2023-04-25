@@ -44,8 +44,20 @@ commande:
     {For($3, $4, $6, $8)}
     | DO commande WHILE GPAREN expression DPAREN SEMICOLON
     {Do_While($2, $5)}
+    | FUNCTION IDENT GPAREN decl_args DPAREN GBRAC main DBRAC
+    {Function_declare($2,$4,$7)}
+    | RETURN expression SEMICOLON
+    {Return($2)}
 
 ;
+decl_args: 
+    {[]}
+    |IDENT
+    {[$1]}
+    |IDENT VIRGULE decl_args
+    {[$1]@$3}
+;
+
 expression:
 IDENT ASSIGN expression
 {Assign($1, $3)}
@@ -80,7 +92,7 @@ IDENT ASSIGN expression
 | MINUS expression %prec UMINUS
 {Neg($2)}
 | IDENT GPAREN arguments DPAREN
-{Function_call($3)}
+{Function_call($1,$3)}
 | NUMBER
 {Num($1)}
 | TRUE

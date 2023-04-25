@@ -1,8 +1,7 @@
 // x=2;
 // y=3;
 // foo(x, x+y);
-for (index = 0; index < 4; index=index+1) {
-    x = 3;
-    LAHAT = 20;
-    
+function foo(x,y) {
+    return x+y;
 }
+z = foo(2,3);

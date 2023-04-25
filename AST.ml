@@ -20,7 +20,7 @@ type expression_a =
     | Nan
     | Ident of string
     | Assign of string * expression_a
-    | Function_call of expression_a list
+    | Function_call of string * expression_a list
 ;;
 type commande_a = 
     |EmptyCommand 
@@ -31,9 +31,17 @@ type commande_a =
     |For of commande_a*expression_a*expression_a*commande_a
     |Do_While of commande_a * expression_a
     |ListCommand of commande_a list
+    |Function_declare of string * (string list) * commande_a list
+    |Return of expression_a
 ;;
 
+(* 
+let get_ident_value iden = 
+    match iden with 
+    | Ident v -> v
+    | _-> ""
 
+;;  *)
 
 let rec print_code oc = function
 | Expr   e -> (print_code oc e); 
@@ -57,7 +65,11 @@ let rec print_code oc = function
 | Nan    ->  (Printf.fprintf oc "CsteNb NaN\n")
 | Ident v -> (Printf.fprintf oc "GetVar %s\n" v)
 | Assign (v,e) ->(print_code oc e);(Printf.fprintf oc "SetVar %s\n" v)
-| Function_call arguments ->  (Printf.fprintf oc "StCall\n");  (print_argument oc arguments); (Printf.fprintf oc "Call \n")
+| Function_call (iden,arguments) ->  
+                                    (Printf.fprintf oc "call%s GetVar %s\n" iden iden);
+                                    (Printf.fprintf oc "StCall\n");  
+                                    (print_argument oc arguments); 
+                                    (Printf.fprintf oc "Call \n")
 
 and print_argument oc args = 
 match args with
@@ -140,6 +152,27 @@ let rec print_command oc c =
                                 (Printf.fprintf oc "%s" "ConJmp break\n"); 
                                 (Printf.fprintf oc "%s" "Jump loop\n");
                                 (Printf.fprintf oc "break Noop\n");
+        
+        |Function_declare(ident,dec_args, commands) -> 
+                               
+                                        (Printf.fprintf oc "DecVar %s\n" ident);
+                                        (Printf.fprintf oc "NewClot %s\n" ident);
+                                        (print_dec_args oc dec_args);
+                                        (Printf.fprintf oc "SetVar %s\n" ident);
+                                        (Printf.fprintf oc "Jump call%s\n" ident);
+                                        (Printf.fprintf oc "%s " ident);
+                                        (print_program oc commands);
+                                   
+
+        
+        |Return e -> (print_code oc e); (Printf.fprintf oc "Return\n");
+
+
+                                
+and print_dec_args oc args = 
+match args with
+    | [] -> ()
+    | h::d -> (Printf.fprintf oc "DecArg %s\n" h); (print_dec_args oc d)
 
 
 and print_program oc l = 
