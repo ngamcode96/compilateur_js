@@ -19,11 +19,11 @@
 %start main
 %%
 main:
-{}
-|EOF
-{}
-| commande main
-{}
+    {}
+    |EOF
+    {}
+    | commande main
+    {}
 
 commande: 
     expression SEMICOLON
@@ -40,58 +40,71 @@ commande:
     {}
     | GBRAC main DBRAC
     {}
+    | FUNCTION IDENT GPAREN decl_args DPAREN GBRAC main DBRAC
+    {}
+    | RETURN expression SEMICOLON
+    {}
 ;
 
+decl_args: 
+    {}
+    |IDENT
+    {}
+    |IDENT VIRGULE decl_args
+    {}
+;
+
+
 expression:
-IDENT ASSIGN expression
-{}
-|expression PLUS expression
-{}
-| expression MINUS expression
-{}
-| expression TIMES expression
-{}
-| expression MODULO expression
-{}
-| expression DIV expression
-{}
-| expression EQUAL expression
-{}
-| expression NOT_EQUAL expression
-{}
-| expression GRST expression
-{}
-| expression GREQ expression
-{}
-| expression LOST expression
-{}
-| expression LOEQ expression
-{}
-| expression AND expression
-{}
-| NOT expression
-{}
-| GPAREN expression DPAREN
-{}
-| MINUS expression %prec UMINUS
-{}
-| IDENT GPAREN arguments DPAREN // appel de fonction
-{}
-| NUMBER
-{}
-| TRUE
-{}
-| FALSE
-{}
-|NAN
-{}
-|IDENT 
-{}
-;
-arguments:
-{}
-| expression
-{}
-| expression VIRGULE arguments
-{}
-;
+    IDENT ASSIGN expression
+    {}
+    |expression PLUS expression
+    {}
+    | expression MINUS expression
+    {}
+    | expression TIMES expression
+    {}
+    | expression MODULO expression
+    {}
+    | expression DIV expression
+    {}
+    | expression EQUAL expression
+    {}
+    | expression NOT_EQUAL expression
+    {}
+    | expression GRST expression
+    {}
+    | expression GREQ expression
+    {}
+    | expression LOST expression
+    {}
+    | expression LOEQ expression
+    {}
+    | expression AND expression
+    {}
+    | NOT expression
+    {}
+    | GPAREN expression DPAREN
+    {}
+    | MINUS expression %prec UMINUS
+    {}
+    | IDENT GPAREN arguments DPAREN // appel de fonction
+    {}
+    | NUMBER
+    {}
+    | TRUE
+    {}
+    | FALSE
+    {}
+    |NAN
+    {}
+    |IDENT 
+    {}
+    ;
+    arguments:
+    {}
+    | expression
+    {}
+    | expression VIRGULE arguments
+    {}
+    ;
