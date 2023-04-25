@@ -1,13 +1,25 @@
-CsteNb 2.
-SetVar x
+CsteNb 0.
+SetVar index
+loop GetVar index
+CsteNb 4.
+LoStNb
+ConJmp break
 CsteNb 3.
-SetVar y
-StCall
-GetVar x
-SetArg 
-GetVar x
-GetVar y
+SetVar x
+CsteNb 20.
+SetVar LAHAT
+CsteNb 2.
+CsteNb 1.
+CsteNb 5.
+MultNb
 AddiNb
-SetArg 
-Call 
+CsteBo true
+CsteBo false
+Equals
+GetVar index
+CsteNb 1.
+AddiNb
+SetVar index
+Jump loop
+break Noop
 Halt

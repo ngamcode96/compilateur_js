@@ -73,7 +73,7 @@ as lexem
 {FUNCTION}
 |"return"
 {RETURN}
-| ['a'-'z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
+| ['a'-'z' 'A'-'Z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
 as id
 {IDENT(id)}
 | eof
