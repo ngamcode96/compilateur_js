@@ -56,8 +56,26 @@ let rec print_code oc = function
 | Sup_strict   (g,d) -> print_binary_operation g d ">" oc;
 | Inf_equal   (g,d) -> print_binary_operation g d "<=" oc;
 | Inf_strict   (g,d) -> print_binary_operation g d "<" oc;
-| And   (g,d) -> (print_code oc g); (Printf.fprintf oc "%s" "ConJmp label_and\n") ;(print_code oc d); (Printf.fprintf oc "Jump fin\nlabel_and CsteBo false\nfin Noop\n");
-| Not b -> print_code oc b;(Printf.fprintf oc "Not\n");
+| And   (g,d) -> (print_code oc g);
+                 (Printf.fprintf oc "TypeOf\n");
+                 (Printf.fprintf oc "Case\n");
+                 (Printf.fprintf oc "Jump 1\n");
+                 (Printf.fprintf oc "NbToBo \n");
+                 (Printf.fprintf oc "ConJmp label_and\n") ;
+                 (print_code oc d);
+                 (Printf.fprintf oc "TypeOf\n");
+                 (Printf.fprintf oc "Case\n");
+                 (Printf.fprintf oc "Jump 1\n");
+                 (Printf.fprintf oc "NbToBo \n"); 
+                (Printf.fprintf oc "Jump fin_and\nlabel_and CsteBo false\nfin_and Noop\n");
+
+| Not b -> (print_code oc b);
+           (Printf.fprintf oc "TypeOf\n");
+           (Printf.fprintf oc "Case\n");
+           (Printf.fprintf oc "Jump fin_not\n");
+           (Printf.fprintf oc "NbToBo \n");
+            (Printf.fprintf oc "fin_not Not\n");
+
 | Paren e -> print_code oc e;
 | Neg   e -> (print_code oc e);(Printf.fprintf oc "NegaNb \n");
 | Num    n    ->  (Printf.fprintf oc "CsteNb %s\n" (string_of_float n))
@@ -123,12 +141,16 @@ let rec print_command oc c =
         )
         |Expression e -> (print_code oc e);
         |Import ident -> (Printf.fprintf oc "%s" (read_import_file (ident^".jsm")))
-        |IfThenElse (e,c1,c2) -> (print_code oc e); 
-                                (Printf.fprintf oc "%s" "ConJmp else\n") ;
+        |IfThenElse (e,c1,c2) -> (print_code oc e);
+                                (Printf.fprintf oc "TypeOf\n");
+                                (Printf.fprintf oc "Case\n"); 
+                                (Printf.fprintf oc "Jump 1\n"); 
+                                (Printf.fprintf oc "NbToBo\n"); 
+                                (Printf.fprintf oc "ConJmp else\n") ;
                                 (print_command oc c1); 
-                                (Printf.fprintf oc "Jump fin\nelse ");
+                                (Printf.fprintf oc "Jump fin_if\nelse ");
                                 (print_command oc c2);
-                                (Printf.fprintf oc "fin Noop\n")
+                                (Printf.fprintf oc "fin_if Noop\n")
 
         |While (e, c) ->        (Printf.fprintf oc "%s" "loop ");
                                 (print_code oc e); 

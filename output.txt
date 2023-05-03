@@ -1,66 +1,37 @@
-NewClot add
-DecArg x
-DecArg y
-SetVar add
-Jump finadd
-add GetVar x
-GetVar y
-AddiNb
-Return
-finadd Noop
-NewClot multi
-DecArg x
-DecArg y
-SetVar multi
-Jump finmulti
-multi GetVar x
-GetVar y
-MultNb
-Return
-finmulti Noop
-GetVar add
-StCall
 CsteNb 2.
-SetArg 
-CsteNb 3.
-SetArg 
-Call 
-GetVar multi
-StCall
-CsteNb 3.
-SetArg 
-CsteNb 2.
-SetArg 
-Call 
-AddiNb
-SetVar z
-NewClot factoriel
-DecArg n
-SetVar factoriel
-Jump finfactoriel
-factoriel GetVar n
-CsteNb 0.
-Equals
+TypeOf
+Case
+Jump 1
+NbToBo 
+ConJmp label_and
+CsteBo false
+TypeOf
+Case
+Jump 1
+NbToBo 
+Jump fin_and
+label_and CsteBo false
+fin_and Noop
+CsteNb 1.
+SetVar x
+GetVar x
+TypeOf
+Case
+Jump 1
+NbToBo
 ConJmp else
-CsteNb 1.
-Return
-Jump fin
-else GetVar n
-GetVar factoriel
-StCall
-GetVar n
-CsteNb 1.
-SubiNb
-SetArg 
-Call 
-MultNb
-Return
-fin Noop
-finfactoriel Noop
-GetVar factoriel
-StCall
-CsteNb 5.
-SetArg 
-Call 
-SetVar fact5
+CsteNb 2.
+SetVar y
+Jump fin_if
+else CsteNb 1.
+SetVar y
+fin_if Noop
+CsteNb 2.
+SetVar z
+GetVar z
+TypeOf
+Case
+Jump fin_not
+NbToBo 
+fin_not Not
 Halt
