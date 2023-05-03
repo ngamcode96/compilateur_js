@@ -1,9 +1,3 @@
-2 && false;
-x = 1;
-if(x){
-    y = 2;
-}else{
-    y = 1;
-}
-z = 2;
-!z;
+x = true + 4; // 5
+y = 3;
+z = x < y; // 5<3 => False

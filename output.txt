@@ -1,37 +1,23 @@
-CsteNb 2.
+CsteBo true
 TypeOf
 Case
-Jump 1
-NbToBo 
-ConJmp label_and
-CsteBo false
+BoToNb
+CsteNb 4.
 TypeOf
 Case
-Jump 1
-NbToBo 
-Jump fin_and
-label_and CsteBo false
-fin_and Noop
-CsteNb 1.
+BoToNb
+AddiNb
 SetVar x
+CsteNb 3.
+SetVar y
 GetVar x
 TypeOf
 Case
-Jump 1
-NbToBo
-ConJmp else
-CsteNb 2.
-SetVar y
-Jump fin_if
-else CsteNb 1.
-SetVar y
-fin_if Noop
-CsteNb 2.
-SetVar z
-GetVar z
+BoToNb
+GetVar y
 TypeOf
 Case
-Jump fin_not
-NbToBo 
-fin_not Not
+BoToNb
+LoStNb
+SetVar z
 Halt

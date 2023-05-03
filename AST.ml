@@ -111,18 +111,23 @@ and print_binary_operation e1 e2 op oc=
         | ">" -> (Printf.fprintf oc "CsteBo %s\n" (string_of_bool (n1 > n2)))
         | _ -> (Printf.fprintf oc ""))
     | _ -> (match op with 
-        | "+" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "AddiNb\n")
-        | "-" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "SubiNb\n")
-        | "*" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "MultNb\n")
-        | "/" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "DiviNb\n")
-        | "%" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "ModuNb\n")
-        | "==" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "Equals\n")
-        | "!=" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "NotEql\n")
-        | "<=" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "LoEqNb\n")
-        | "<" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "LoStNb\n")
-        | ">=" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "GrEqNb\n")
-        | ">" -> (print_code oc e1); (print_code oc e2); (Printf.fprintf oc "%s" "GrStNb\n")
+        | "+" -> (print_code oc e1); (cast_to_number oc);  (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "AddiNb\n")
+        | "-" -> (print_code oc e1); (cast_to_number oc);  (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "SubiNb\n")
+        | "*" -> (print_code oc e1); (cast_to_number oc); (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "MultNb\n")
+        | "/" -> (print_code oc e1); (cast_to_number oc); (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "DiviNb\n")
+        | "%" -> (print_code oc e1); (cast_to_number oc); (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "ModuNb\n")
+        | "==" -> (print_code oc e1);(cast_to_number oc); (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "Equals\n")
+        | "!=" -> (print_code oc e1);(cast_to_number oc); (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "NotEql\n")
+        | "<=" -> (print_code oc e1);(cast_to_number oc); (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "LoEqNb\n")
+        | "<" -> (print_code oc e1); (cast_to_number oc); (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "LoStNb\n")
+        | ">=" -> (print_code oc e1); (cast_to_number oc); (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "GrEqNb\n")
+        | ">" -> (print_code oc e1); (cast_to_number oc); (print_code oc e2); (cast_to_number oc); (Printf.fprintf oc "%s" "GrStNb\n")
         | _ -> (Printf.fprintf oc ""))
+
+and cast_to_number oc = 
+    (Printf.fprintf oc "TypeOf\n"); 
+    (Printf.fprintf oc "Case\n");
+    (Printf.fprintf oc "BoToNb\n");
 ;;
 
 let read_import_file filename = 
