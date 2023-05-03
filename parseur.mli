@@ -1,5 +1,6 @@
 type token =
   | NUMBER of (float)
+  | UNDEFINED
   | PLUS
   | MINUS
   | TIMES

@@ -1,23 +1,90 @@
-CsteBo true
-TypeOf
-Case
-BoToNb
-CsteNb 4.
-TypeOf
-Case
-BoToNb
-AddiNb
+CsteUn
 SetVar x
-CsteNb 3.
-SetVar y
 GetVar x
 TypeOf
 Case
 BoToNb
-GetVar y
+Jump 6
+Jump 5
+Drop
+CsteNb NaN
+Jump 2
+Noop
+Error 
+CsteNb 2.
 TypeOf
 Case
 BoToNb
+Jump 6
+Jump 5
+Drop
+CsteNb NaN
+Jump 2
+Noop
+Error 
 LoStNb
+SetVar y
+CsteUn
+TypeOf
+Case
+Jump 6
+NbToBo 
+Jump 4 
+Noop 
+Jump fin_and
+Noop
+Error 
+ConJmp label_and
+CsteBo true
+TypeOf
+Case
+Jump 6
+NbToBo 
+Jump 4 
+Noop 
+Jump fin_and
+Noop
+Error 
+Jump fin_and
+label_and CsteBo false
+fin_and Noop
 SetVar z
+CsteUn
+TypeOf
+Case
+BoToNb
+Jump 6
+Jump 5
+Drop
+CsteNb NaN
+Jump 2
+Noop
+Error 
+CsteNb 1.
+TypeOf
+Case
+BoToNb
+Jump 6
+Jump 5
+Drop
+CsteNb NaN
+Jump 2
+Noop
+Error 
+AddiNb
+SetVar t
+CsteUn
+TypeOf
+Case
+Jump 7
+NbToBo 
+Jump 5
+Noop 
+Drop 
+CsteBo false 
+Jump 2
+Noop
+Error 
+Not
+SetVar k
 Halt

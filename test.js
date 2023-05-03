@@ -1,3 +1,5 @@
-x = true + 4; // 5
-y = 3;
-z = x < y; // 5<3 => False
+x = undefined; //undefined
+y = x < 2; // false 
+z = undefined && true; // undefined
+t = undefined + 1; // nan
+k = !undefined; //true

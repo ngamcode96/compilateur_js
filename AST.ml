@@ -21,6 +21,7 @@ type expression_a =
     | Ident of string
     | Assign of string * expression_a
     | Function_call of string * expression_a list
+    | Undefined
 ;;
 type commande_a = 
     |EmptyCommand 
@@ -59,22 +60,39 @@ let rec print_code oc = function
 | And   (g,d) -> (print_code oc g);
                  (Printf.fprintf oc "TypeOf\n");
                  (Printf.fprintf oc "Case\n");
-                 (Printf.fprintf oc "Jump 1\n");
-                 (Printf.fprintf oc "NbToBo \n");
-                 (Printf.fprintf oc "ConJmp label_and\n") ;
+                 (Printf.fprintf oc "Jump 6\n"); (* Cas d'un booleen on fait rien (on saut pour entrer dans condJump)*)
+                 (Printf.fprintf oc "NbToBo \n"); (* Cas d'un entier on le converti en booleen *)
+                 (Printf.fprintf oc "Jump 4 \n"); 
+                 (Printf.fprintf oc "Noop \n"); (* Cas d'un string  *)
+                 (Printf.fprintf oc "Jump fin_and\n"); (* cas du undefined. on renvoie un undefined en sautant le cond jump*)
+                 (Printf.fprintf oc "Noop\n"); (* Type no4 *)
+                 (Printf.fprintf oc "Error \n"); (* en cas d'un operation binaire avec Cloture (ou valeur d'une fonction)*)
+                 (Printf.fprintf oc "ConJmp label_and\n");
                  (print_code oc d);
                  (Printf.fprintf oc "TypeOf\n");
                  (Printf.fprintf oc "Case\n");
-                 (Printf.fprintf oc "Jump 1\n");
-                 (Printf.fprintf oc "NbToBo \n"); 
-                (Printf.fprintf oc "Jump fin_and\nlabel_and CsteBo false\nfin_and Noop\n");
+                 (Printf.fprintf oc "Jump 6\n"); (* Cas d'un booleen on fait rien (on saut pour entrer dans condJump)*)
+                 (Printf.fprintf oc "NbToBo \n"); (* Cas d'un entier on le converti en booleen *)
+                 (Printf.fprintf oc "Jump 4 \n"); 
+                 (Printf.fprintf oc "Noop \n"); (* Cas d'un string  *)
+                 (Printf.fprintf oc "Jump fin_and\n"); (* cas du undefined. on renvoie un undefined en sautant le cond jump*)
+                 (Printf.fprintf oc "Noop\n"); (* Type no4 *)
+                 (Printf.fprintf oc "Error \n"); (* en cas d'un operation binaire avec Cloture (ou valeur d'une fonction)*)
+                 (Printf.fprintf oc "Jump fin_and\nlabel_and CsteBo false\nfin_and Noop\n");
 
 | Not b -> (print_code oc b);
            (Printf.fprintf oc "TypeOf\n");
            (Printf.fprintf oc "Case\n");
-           (Printf.fprintf oc "Jump fin_not\n");
-           (Printf.fprintf oc "NbToBo \n");
-            (Printf.fprintf oc "fin_not Not\n");
+           (Printf.fprintf oc "Jump 7\n"); (*bool*)
+           (Printf.fprintf oc "NbToBo \n"); (*entier*)
+           (Printf.fprintf oc "Jump 5\n"); (*entier*)
+           (Printf.fprintf oc "Noop \n"); (*string*)
+           (Printf.fprintf oc "Drop \n"); (*cas du undefined*)
+           (Printf.fprintf oc "CsteBo false \n");
+           (Printf.fprintf oc "Jump 2\n");
+           (Printf.fprintf oc "Noop\n"); (* type no 4*)
+           (Printf.fprintf oc "Error \n"); (* en cas d'un operation binaire avec Cloture (ou valeur d'une fonction)*)
+           (Printf.fprintf oc "Not\n");
 
 | Paren e -> print_code oc e;
 | Neg   e -> (print_code oc e);(Printf.fprintf oc "NegaNb \n");
@@ -87,7 +105,9 @@ let rec print_code oc = function
                                     (Printf.fprintf oc "GetVar %s\n" iden);
                                     (Printf.fprintf oc "StCall\n");  
                                     (print_argument oc arguments); 
-                                    (Printf.fprintf oc "Call \n")
+                                    (Printf.fprintf oc "Call \n");
+
+|Undefined -> (Printf.fprintf oc "CsteUn\n");
 
 and print_argument oc args = 
 match args with
@@ -127,8 +147,16 @@ and print_binary_operation e1 e2 op oc=
 and cast_to_number oc = 
     (Printf.fprintf oc "TypeOf\n"); 
     (Printf.fprintf oc "Case\n");
-    (Printf.fprintf oc "BoToNb\n");
-;;
+    (Printf.fprintf oc "BoToNb\n"); (* cas d'un booleen*)
+    (Printf.fprintf oc "Jump 6\n"); (* cas d'un nombre*)
+    (Printf.fprintf oc "Jump 5\n");  (* cas d'un string non traité*)
+    (Printf.fprintf oc "Drop\n"); (* cas d'un undefined.*)
+    (Printf.fprintf oc "CsteNb NaN\n"); 
+    (Printf.fprintf oc "Jump 2\n"); 
+    (Printf.fprintf oc "Noop\n"); (* type no 4*)
+    (Printf.fprintf oc "Error \n"); (* en cas d'un operation binaire avec Cloture (ou valeur d'une fonction)*)
+;;                                  
+
 
 let read_import_file filename = 
     let f = open_in filename in
