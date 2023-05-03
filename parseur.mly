@@ -80,7 +80,7 @@ IDENT ASSIGN expression
 | MINUS expression %prec UMINUS
 {Neg($2)}
 | IDENT GPAREN arguments DPAREN
-{Function_call($3)}
+{Function_call($1, $3)}
 | NUMBER
 {Num($1)}
 | TRUE
