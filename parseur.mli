@@ -1,5 +1,6 @@
 type token =
   | NUMBER
+  | UNDEFINED
   | PLUS
   | MINUS
   | TIMES
