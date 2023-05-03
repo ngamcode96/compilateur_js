@@ -1,19 +1,66 @@
-DecVar foo
-NewClot foo
+NewClot add
 DecArg x
 DecArg y
-SetVar foo
-Jump callfoo
-foo GetVar x
+SetVar add
+Jump finadd
+add GetVar x
 GetVar y
 AddiNb
 Return
-callfoo GetVar foo
+finadd Noop
+NewClot multi
+DecArg x
+DecArg y
+SetVar multi
+Jump finmulti
+multi GetVar x
+GetVar y
+MultNb
+Return
+finmulti Noop
+GetVar add
 StCall
 CsteNb 2.
 SetArg 
 CsteNb 3.
 SetArg 
 Call 
+GetVar multi
+StCall
+CsteNb 3.
+SetArg 
+CsteNb 2.
+SetArg 
+Call 
+AddiNb
 SetVar z
+NewClot factoriel
+DecArg n
+SetVar factoriel
+Jump finfactoriel
+factoriel GetVar n
+CsteNb 0.
+Equals
+ConJmp else
+CsteNb 1.
+Return
+Jump fin
+else GetVar n
+GetVar factoriel
+StCall
+GetVar n
+CsteNb 1.
+SubiNb
+SetArg 
+Call 
+MultNb
+Return
+fin Noop
+finfactoriel Noop
+GetVar factoriel
+StCall
+CsteNb 5.
+SetArg 
+Call 
+SetVar fact5
 Halt

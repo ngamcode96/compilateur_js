@@ -66,7 +66,7 @@ let rec print_code oc = function
 | Ident v -> (Printf.fprintf oc "GetVar %s\n" v)
 | Assign (v,e) ->(print_code oc e);(Printf.fprintf oc "SetVar %s\n" v)
 | Function_call (iden,arguments) ->  
-                                    (Printf.fprintf oc "call%s GetVar %s\n" iden iden);
+                                    (Printf.fprintf oc "GetVar %s\n" iden);
                                     (Printf.fprintf oc "StCall\n");  
                                     (print_argument oc arguments); 
                                     (Printf.fprintf oc "Call \n")
@@ -154,14 +154,14 @@ let rec print_command oc c =
                                 (Printf.fprintf oc "break Noop\n");
         
         |Function_declare(ident,dec_args, commands) -> 
-                               
-                                        (Printf.fprintf oc "DecVar %s\n" ident);
                                         (Printf.fprintf oc "NewClot %s\n" ident);
                                         (print_dec_args oc dec_args);
                                         (Printf.fprintf oc "SetVar %s\n" ident);
-                                        (Printf.fprintf oc "Jump call%s\n" ident);
+                                        (Printf.fprintf oc "Jump fin%s\n" ident);
                                         (Printf.fprintf oc "%s " ident);
                                         (print_program oc commands);
+                                        (Printf.fprintf oc "fin%s Noop\n" ident);
+
                                    
 
         
