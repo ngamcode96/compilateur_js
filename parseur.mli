@@ -15,6 +15,7 @@ type token =
   | NAN
   | ASSIGN
   | IDENT
+  | LET
   | IMPORT
   | TRUE
   | FALSE

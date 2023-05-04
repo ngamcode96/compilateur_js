@@ -1,2 +1,2 @@
-undefined;
-x = undefined;
+let x;
+let y;

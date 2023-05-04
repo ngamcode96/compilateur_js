@@ -74,6 +74,8 @@ rule token = parse
 {RETURN}
 |"undefined"
 {UNDEFINED}
+|"let"
+{LET}
 | ['a'-'z' 'A'-'Z']+['a'-'z' 'A'-'Z' '_' '0'-'9']*
 {IDENT}
 | eof
