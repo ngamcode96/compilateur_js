@@ -15,6 +15,7 @@ type token =
   | GBRAC
   | DBRAC
   | IDENT of (string)
+  | LET
   | IMPORT
   | TRUE
   | FALSE

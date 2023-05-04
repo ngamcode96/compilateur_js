@@ -34,6 +34,7 @@ type commande_a =
     |ListCommand of commande_a list
     |Function_declare of string * (string list) * commande_a list
     |Return of expression_a
+    |Let of string
 ;;
 
 (* 
@@ -221,6 +222,7 @@ let rec print_command oc c =
 
         
         |Return e -> (print_code oc e); (Printf.fprintf oc "Return\n");
+        |Let ident ->  (Printf.fprintf oc "DclVar %s\n" ident);
 
 
                                 

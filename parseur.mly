@@ -1,6 +1,7 @@
 %token<float> NUMBER
 %token UNDEFINED PLUS MINUS TIMES GPAREN DPAREN SEMICOLON EOF MODULO DIV NAN ASSIGN GBRAC DBRAC
 %token<string> IDENT
+%token LET
 %token IMPORT
 %token TRUE FALSE NOT AND
 %token EQUAL GRST GREQ LOST LOEQ NOT_EQUAL
@@ -48,6 +49,8 @@ commande:
     {Function_declare($2,$4,$7)}
     | RETURN expression SEMICOLON
     {Return($2)}
+    |LET IDENT SEMICOLON
+    {Let($2)}
 
 ;
 decl_args: 
