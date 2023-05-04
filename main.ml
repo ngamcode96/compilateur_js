@@ -8,5 +8,6 @@ let lexbuf = Lexing.from_channel fichier in
 with
 | Lexeur.TokenInconu 
 | Parsing.Parse_error -> 
-Printf.printf ("Syntax error \n")
+Printf.printf ("Erreur de compilation: Syntax error \n")
+| AST.Error_existing_decl s -> Printf.printf "%s" s
 

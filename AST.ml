@@ -1,3 +1,5 @@
+exception Error_existing_decl of string;;
+
 type expression_a =
     | Expr  of expression_a
     | Plus  of expression_a * expression_a
@@ -166,10 +168,29 @@ let read_import_file filename =
     close_in f;
     content;;
 
+
+
+(* pour faire le hosting en mettant le let _ en haut du noeud parent*)
+let apply_hosting lc =
+    let rec apply_hosting_rec lc lc_hosting = (match lc with
+    | []  -> lc_hosting
+    | h::d -> (match h with 
+                |Let v -> (if  not(List.mem h d) then (* on **)
+                    h::(apply_hosting_rec d lc_hosting)
+                          else                                
+                    raise (Error_existing_decl (("Erreur de compilation: La meme variable " ^ v) ^ " a été déja déclarée\n")))
+
+
+                |_-> (apply_hosting_rec d (lc_hosting @ [h])))
+    
+    ) in apply_hosting_rec lc [];;
+        
+
 let rec print_command oc c = 
+
     match c with
         |EmptyCommand -> ()
-        |ListCommand list -> (match list with
+        |ListCommand list -> let lc_hosting =  (apply_hosting list) in  (match lc_hosting with
             | [] -> ()
             | h::d -> (print_command oc h); (print_program oc d);
         )
@@ -231,14 +252,19 @@ match args with
     | [] -> ()
     | h::d -> (Printf.fprintf oc "DecArg %s\n" h); (print_dec_args oc d)
 
-
 and print_program oc l = 
-match l with
-    |[] -> ()
-    |h::d -> (print_command oc h);(print_program oc d);;
-;;
-        
+(* on applique le hosting sur le bloc le programme ({...})*)
+let lc_hosting = (apply_hosting l) in 
+    match lc_hosting with
+        |[] -> ()
+        |h::d -> (print_command oc h);(print_program oc d);;
+
+
+
 let rec print_AST oc l = 
-    match l with
+    let l_hosting = (apply_hosting l) in
+    match l_hosting with
     |[] -> Printf.fprintf oc "Halt\n"
     |h::d -> (print_command oc h);(print_AST oc d);;
+
+

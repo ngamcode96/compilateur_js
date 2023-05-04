@@ -1,3 +1,35 @@
 DclVar x
-DclVar y
+NewClot foo
+SetVar foo
+Jump finfoo
+foo DclVar k
+CsteNb 9.
+SetVar z
+GetVar y
+TypeOf
+Case
+BoToNb
+Jump 6
+Jump 5
+Drop
+CsteNb NaN
+Jump 2
+Noop
+Error 
+CsteNb 1.
+TypeOf
+Case
+BoToNb
+Jump 6
+Jump 5
+Drop
+CsteNb NaN
+Jump 2
+Noop
+Error 
+AddiNb
+SetVar y
+CsteNb 0.
+SetVar e
+finfoo Noop
 Halt
